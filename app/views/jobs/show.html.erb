@@ -1,18 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Company:</strong>
-  <%= @job.company %>
-</p>
+
 
 <p>
-  <strong>Company logo:</strong>
   <%= image_tag(@job.companylogo_url, width: 200) if @job.companylogo.present? %>
 </p>
 
 <p>
-  <strong>Job title:</strong>
-  <%= @job.title %>
+  <strong> <%= @job.company %> is hiring <%= @job.title %>!</strong>
 </p>
 
 <p>
@@ -26,9 +21,18 @@
 </p>
 
 <p>
-  <strong>Send resumé to:</strong>
+  <strong>Send resumé to: </strong>
   <%= @job.rhemail %>
 </p>
 
 <%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+<%= link_to 'Back to Job Listing', jobs_path %>
+<br><hr class="style-two"><br>
+<h3>What people think about this company and/or job opportunity?</h3>
+<% @comments.each do |comment| %>
+  <div>
+    <strong><%= comment.user_name %></strong>: <%= comment.body %> | <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  </div>
+<% end %>
+<br><hr class="style-two"><br>
+<%= render 'comments/form' %>
